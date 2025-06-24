@@ -1,0 +1,45 @@
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.section-header-centered {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.section-line {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.section-header:not(.section-header-centered) .section-line {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+} 

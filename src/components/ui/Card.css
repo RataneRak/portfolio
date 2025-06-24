@@ -1,0 +1,59 @@
+.card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+/* Variantes */
+.card-default {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-elevated {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-outlined {
+  border: 2px solid #e9ecef;
+  box-shadow: none;
+}
+
+/* Padding */
+.card-padding-small {
+  padding: 1rem;
+}
+
+.card-padding-medium {
+  padding: 1.5rem;
+}
+
+.card-padding-large {
+  padding: 2rem;
+}
+
+/* États interactifs */
+.card-hoverable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card-clickable {
+  cursor: pointer;
+}
+
+.card-clickable:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus pour l'accessibilité */
+.card:focus-within {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-padding-large {
+    padding: 1.5rem;
+  }
+} 

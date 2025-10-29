@@ -1,70 +1,83 @@
-/* Import de la police Inter depuis Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-/* Reset CSS de base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root{
+  /* Light theme (par défaut) */
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --accent: #4f46e5;
+  --link: #2563eb;
+  --shadow: rgba(2,6,23,0.08);
+  color-scheme: light;
 }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
+/* Respecter la préférence système si l'utilisateur préfère le dark */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #07101a;
+    --surface: #08121b;
+    --text: #e6eef8;
+    --muted: #9aa6b2;
+    --accent: #7c3aed;
+    --link: #60a5fa;
+    --shadow: rgba(0,0,0,0.6);
+    color-scheme: dark;
+  }
 }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  color: #333;
-  background-color: #ffffff;
+/* Forcer dark via data-theme attribute (toggle JavaScript mettra cet attribut) */
+[data-theme="dark"]{
+  --bg: #07101a;
+  --surface: #08121b;
+  --text: #e6eef8;
+  --muted: #9aa6b2;
+  --accent: #7c3aed;
+  --link: #60a5fa;
+  --shadow: rgba(0,0,0,0.6);
+  color-scheme: dark;
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Global reset / usage */
+html,body,#root{
+  height:100%;
 }
 
-/* Styles de base pour les liens */
-a {
-  color: inherit;
-  text-decoration: none;
+body{
+  margin:0;
+  background-color:var(--bg);
+  color:var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
-/* Styles de base pour les listes */
-ul, ol {
-  list-style: none;
+/* Surfaces / cards */
+.card{
+  background:var(--surface);
+  color:var(--text);
+  box-shadow: 0 6px 18px var(--shadow);
+  border-radius: 8px;
 }
 
-/* Styles de base pour les boutons */
-button {
-  font-family: inherit;
-  cursor: pointer;
+/* Links */
+a{
+  color:var(--link);
 }
 
-/* Styles de base pour les inputs */
-input, textarea {
-  font-family: inherit;
+/* Small utility for muted text */
+.muted{
+  color:var(--muted);
 }
 
-/* Focus visible pour l'accessibilité */
-*:focus {
-  outline: 2px solid #4facfe;
-  outline-offset: 2px;
-}
-
-/* Sélection de texte personnalisée */
-::selection {
-  background: rgba(79, 172, 254, 0.2);
-  color: #333;
-}
-
-::-moz-selection {
-  background: rgba(79, 172, 254, 0.2);
-  color: #333;
+/* Theme toggle button style (simple) */
+.theme-toggle{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  color:var(--text);
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
 }

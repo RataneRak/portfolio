@@ -1,32 +1,26 @@
-import React from 'react';
-import './SectionHeader.css';
+import React from "react";
+import { useInView } from "../../hooks";
+import "./SectionHeader.css";
 
 interface SectionHeaderProps {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
-  centered?: boolean;
-  className?: string;
+  id?: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({
-  title,
-  subtitle,
-  centered = true,
-  className = ''
-}) => {
-  const headerClasses = [
-    'section-header',
-    centered ? 'section-header-centered' : '',
-    className
-  ].filter(Boolean).join(' ');
+const SectionHeader: React.FC<SectionHeaderProps> = ({ eyebrow, title, subtitle, id }) => {
+  const { ref, inView } = useInView<HTMLElement>(0.3);
 
   return (
-    <div className={headerClasses}>
-      <h2 className="section-title">{title}</h2>
+    <header ref={ref} className={`section-header stagger ${inView ? "is-visible" : ""}`}>
+      {eyebrow && <span className="section-eyebrow">{eyebrow}</span>}
+      <h2 className="section-title" id={id}>
+        <span className="title-fill">{title}</span>
+      </h2>
       {subtitle && <p className="section-subtitle">{subtitle}</p>}
-      <div className="section-line"></div>
-    </div>
+    </header>
   );
 };
 
-export default SectionHeader; 
+export default SectionHeader;

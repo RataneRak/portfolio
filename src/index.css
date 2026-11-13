@@ -1,8 +1,57 @@
-/* Import de la police Inter depuis Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap");
 
-/* Reset CSS de base */
-* {
+/* ===== Design tokens ===== */
+:root {
+  --bg: #f7f8fc;
+  --bg-alt: #eef1f8;
+  --surface: #ffffff;
+  --surface-2: #f3f5fa;
+  --border: #e2e6ef;
+  --text: #121826;
+  --text-muted: #5b6478;
+  --accent: #5b5bf0;
+  --accent-2: #06b6d4;
+  --accent-soft: rgba(91, 91, 240, 0.1);
+  --gradient: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+  --success: #15803d;
+  --danger: #b91c1c;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow: 0 8px 30px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 20px 50px rgba(16, 24, 40, 0.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --header-h: 72px;
+  --container: 1160px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0f1a;
+  --bg-alt: #0f1422;
+  --surface: #141a2b;
+  --surface-2: #1a2236;
+  --border: #252e45;
+  --text: #e8ecf5;
+  --text-muted: #98a2b8;
+  --accent: #8b8bff;
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(139, 139, 255, 0.14);
+  --success: #4ade80;
+  --danger: #f87171;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+/* ===== Base ===== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,61 +59,220 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  scroll-padding-top: var(--header-h);
+}
+
+/* Lenis gère lui-même le défilement fluide */
+html.lenis {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font);
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  color: #333;
-  background-color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-/* Styles de base pour les liens */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Styles de base pour les listes */
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
-/* Styles de base pour les boutons */
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
 button {
-  font-family: inherit;
   cursor: pointer;
 }
 
-/* Styles de base pour les inputs */
-input, textarea {
-  font-family: inherit;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* Focus visible pour l'accessibilité */
-*:focus {
-  outline: 2px solid #4facfe;
-  outline-offset: 2px;
-}
-
-/* Sélection de texte personnalisée */
 ::selection {
-  background: rgba(79, 172, 254, 0.2);
-  color: #333;
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
-::-moz-selection {
-  background: rgba(79, 172, 254, 0.2);
-  color: #333;
+/* ===== Layout utilitaires ===== */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 112px 0;
+}
+
+.section-alt {
+  background: var(--bg-alt);
+}
+
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 2000;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ===== Animations d'apparition ===== */
+
+/* Bloc entier : fondu + montée (propriétés gérées par le GPU, sans flou coûteux) */
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+  transition: opacity 0.9s var(--ease-out), translate 0.9s var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Enfants en cascade : chaque élément arrive avec un léger décalage.
+   On anime `translate` (et non `transform`) pour ne pas bloquer les effets de survol. */
+.stagger > * {
+  opacity: 0;
+}
+
+.is-visible .stagger > *,
+.stagger.is-visible > * {
+  animation: rise 0.75s var(--ease-out) both;
+  animation-delay: calc(var(--stagger-base, 0ms) + var(--i, 0) * 70ms);
+}
+
+.stagger > :nth-child(1) { --i: 0; }
+.stagger > :nth-child(2) { --i: 1; }
+.stagger > :nth-child(3) { --i: 2; }
+.stagger > :nth-child(4) { --i: 3; }
+.stagger > :nth-child(5) { --i: 4; }
+.stagger > :nth-child(6) { --i: 5; }
+.stagger > :nth-child(7) { --i: 6; }
+.stagger > :nth-child(8) { --i: 7; }
+.stagger > :nth-child(9) { --i: 8; }
+.stagger > :nth-child(n + 10) { --i: 9; }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 22px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Changement de thème : révélation circulaire (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal,
+  .stagger > * {
+    opacity: 1;
+    translate: none;
+    filter: none;
+    animation-delay: 0s !important;
+  }
 }

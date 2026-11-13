@@ -2,11 +2,40 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio professionnel - Développeur Full Stack" />
-    <meta name="keywords" content="portfolio, développeur, full stack, React, typescript" />
-    <title>Mon Portfolio - Développeur Full Stack</title>
+    <title>Tanjona Rakotoarisoa — Développeur Full Stack & Testeur QA</title>
+    <meta
+      name="description"
+      content="Portfolio de Tanjona Nomenjanahary RAKOTOARISOA, développeur Full Stack (React, Next.js, Node.js) et testeur QA basé à Antananarivo, Madagascar."
+    />
+    <meta name="author" content="Tanjona Nomenjanahary RAKOTOARISOA" />
+    <meta name="theme-color" content="#5b5bf0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Tanjona Rakotoarisoa — Développeur Full Stack &amp; Testeur QA" />
+    <meta
+      property="og:description"
+      content="Applications web modernes et testées avec React, Next.js et Node.js. Découvrez mes projets et contactez-moi."
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/profile.webp" type="image/webp" />
+
+    <script>
+      // Applique le thème avant le rendu pour éviter un flash
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem("portfolio-theme"); } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

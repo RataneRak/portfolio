@@ -1,0 +1,176 @@
+/* =====================================================================
+   Effets liés au défilement (CSS Scroll-Driven Animations)
+   L'animation avance et recule au rythme exact du scroll.
+   Navigateurs non compatibles ou « mouvements réduits » : site statique,
+   les apparitions classiques (.reveal / .stagger) restent actives.
+   ===================================================================== */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* 1. Accueil : le contenu s'éloigne et se floute en quittant l'écran */
+    .hero-inner {
+      will-change: opacity, scale, translate;
+      animation: hero-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+
+    .hero-glow-1 {
+      animation: drift-down linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    .hero-glow-2 {
+      animation: drift-up linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    /* 2. Sections à fond gris : le panneau s'élargit jusqu'aux bords */
+    .section-alt {
+      animation: panel-expand linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    /* 3. Titres : le texte se « remplit » de couleur au fil du scroll */
+    .title-fill {
+      background: linear-gradient(
+          90deg,
+          var(--text) 0%,
+          var(--text) 50%,
+          color-mix(in srgb, var(--text) 18%, transparent) 50.1%
+        )
+        0 0 / 200% 100% no-repeat;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: title-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 45%;
+    }
+
+    /* 4. Parcours : la ligne se dessine au rythme de la lecture,
+          et chaque étape s'allume quand elle passe au centre de l'écran */
+    .career .timeline {
+      view-timeline: --career block;
+    }
+
+    .career .timeline::before {
+      transition: none;
+      transform: none;
+      animation: line-draw linear both;
+      animation-timeline: --career;
+      animation-range: entry 30% exit 20%;
+      transform-origin: top;
+    }
+
+    .timeline-item {
+      view-timeline: --step block;
+    }
+
+    .timeline-item::before {
+      animation: step-on linear both;
+      animation-timeline: --step;
+      animation-range: entry 60% cover 45%;
+    }
+
+    /* 5. Projets : parallaxe de l'image à l'intérieur de la carte */
+    .project-media img,
+    .project-media-icon {
+      animation: media-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    /* 6. Blocs d'appel à l'action et formulaire : bascule 3D en entrant */
+    .projects-cta,
+    .contact-form {
+      animation-name: tilt-in;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}
+
+@keyframes hero-out {
+  to {
+    opacity: 0;
+    scale: 0.92;
+    translate: 0 80px;
+  }
+}
+
+@keyframes drift-down {
+  to {
+    translate: -60px 220px;
+  }
+}
+
+@keyframes drift-up {
+  to {
+    translate: 80px -180px;
+  }
+}
+
+@keyframes panel-expand {
+  from {
+    clip-path: inset(0 4% round 48px);
+  }
+  to {
+    clip-path: inset(0 0 round 0);
+  }
+}
+
+@keyframes title-fill {
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes line-draw {
+  from {
+    scale: 1 0;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes step-on {
+  from {
+    background: var(--bg);
+    scale: 0.6;
+  }
+  to {
+    background: var(--accent);
+    scale: 1.15;
+    box-shadow: 0 0 0 5px var(--accent-soft);
+  }
+}
+
+@keyframes media-parallax {
+  from {
+    translate: 0 -10%;
+    scale: 1.18;
+  }
+  to {
+    translate: 0 10%;
+    scale: 1.18;
+  }
+}
+
+@keyframes tilt-in {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateX(18deg) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,20 +1,26 @@
-import { Header, Footer } from './components/layout';
-import { Hero, About, Skills, Projects, Contact } from './components/sections';
-import './App.css';
+import { Header, Footer } from "./components/layout";
+import { useSmoothScroll } from "./hooks";
+import { Hero, About, Experience, Skills, Projects, Contact } from "./components/sections";
 
 function App() {
+  useSmoothScroll();
+
   return (
-    <div className="App">
+    <>
+      <a href="#main" className="skip-link">
+        Aller au contenu
+      </a>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <About />
+        <Experience />
         <Skills />
         <Projects />
         <Contact />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

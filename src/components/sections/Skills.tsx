@@ -6,7 +6,6 @@ import {
   FaSitemap,
   FaSyncAlt,
   FaTasks,
-  FaTerminal,
   FaUserFriends,
 } from "react-icons/fa";
 import { MdDevices } from "react-icons/md";
@@ -23,13 +22,11 @@ import {
   SiNextdotjs,
   SiPhp,
   SiPostgresql,
-  SiPostman,
   SiReact,
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
-import { TbApi, TbBug, TbChecklist, TbDevices, TbFileDescription, TbRefresh, TbTestPipe } from "react-icons/tb";
-import { VscVscode } from "react-icons/vsc";
+import { TbApi } from "react-icons/tb";
 import { useInView } from "../../hooks";
 import { SectionHeader } from "../ui";
 import "./Skills.css";
@@ -40,8 +37,7 @@ type Level = "Avancé" | "Bon niveau";
 type Effect =
   | "spin" | "bounce" | "type" | "flip" | "sway" | "heartbeat" | "zap" | "build"
   | "dive" | "stomp" | "leaf" | "resize" | "wind" | "kick" | "branch" | "jump"
-  | "code" | "ping" | "blink" | "cycle" | "bubble" | "rewind" | "check" | "crawl"
-  | "launch" | "stamp" | "talk" | "snap" | "idea";
+  | "ping" | "cycle" | "rewind" | "check" | "talk" | "snap" | "idea";
 
 interface Skill {
   name: string;
@@ -90,24 +86,9 @@ const skillGroups: { title: string; description: string; skills: Skill[] }[] = [
     description: "Pour livrer proprement, en équipe.",
     skills: [
       { name: "Git", fx: "branch", icon: <SiGit />, color: "#f05032", description: "Gestion de version" },
-      { name: "GitHub", fx: "jump", icon: <SiGithub />, color: "#181717", description: "Collaboration, CI/CD" },
-      { name: "VS Code", fx: "code", icon: <VscVscode />, color: "#0a7bd6", description: "Éditeur de code" },
+      { name: "GitHub", fx: "jump", icon: <SiGithub />, color: "#181717", description: "Collaboration et revue de code" },
       { name: "API REST / JSON", fx: "ping", icon: <TbApi />, color: "var(--accent)", description: "Échange de données" },
-      { name: "Terminal", fx: "blink", icon: <FaTerminal />, color: "var(--accent-2)", description: "Ligne de commande" },
       { name: "Agile (Scrum)", fx: "cycle", icon: <FaSitemap />, color: "var(--accent)", description: "Gestion itérative" },
-    ],
-  },
-  {
-    title: "Qualité & Tests (QA)",
-    description: "Garantir la fiabilité du produit avant chaque mise en production.",
-    skills: [
-      { name: "Tests fonctionnels", fx: "bubble", icon: <TbTestPipe />, color: "var(--accent)", description: "Vérification des fonctionnalités face au besoin" },
-      { name: "Tests de régression", fx: "rewind", icon: <TbRefresh />, color: "var(--accent-2)", description: "Non-régression après chaque évolution" },
-      { name: "Plans & cas de test", fx: "check", icon: <TbChecklist />, color: "var(--accent)", description: "Conception et rédaction des scénarios de test" },
-      { name: "Rapports d'anomalies", fx: "crawl", icon: <TbBug />, color: "#e5484d", description: "Bugs documentés, priorisés et reproductibles" },
-      { name: "Tests d'API (Postman)", fx: "launch", icon: <SiPostman />, color: "#ff6c37", description: "Validation des endpoints REST" },
-      { name: "Tests multi-supports", fx: "resize", icon: <TbDevices />, color: "var(--accent-2)", description: "Navigateurs, mobile et responsive" },
-      { name: "Recette & validation", fx: "stamp", icon: <TbFileDescription />, color: "var(--accent)", description: "Recette fonctionnelle avant livraison" },
     ],
   },
 ];
@@ -129,14 +110,15 @@ const Skills = () => {
       <div className="container">
         <SectionHeader
           id="competences-title"
+          index="03"
           eyebrow="Compétences"
           title="Boîte à outils"
-          subtitle="Technologies et méthodes au service de la conception, du développement, des tests et de la livraison."
+          subtitle="Les technologies et méthodes utilisées au quotidien pour concevoir, développer et livrer des applications web."
         />
 
         <div ref={ref} className={`skills-groups stagger ${inView ? "is-visible" : ""}`}>
           {skillGroups.map((group) => (
-            <article key={group.title} className="skill-group">
+            <article key={group.title} className="skill-group spotlight">
               <header className="skill-group-header">
                 <h3>{group.title}</h3>
                 <p>{group.description}</p>
@@ -166,7 +148,7 @@ const Skills = () => {
             </article>
           ))}
 
-          <article className="skill-group soft-skills">
+          <article className="skill-group soft-skills spotlight">
             <header className="skill-group-header">
               <h3>Compétences transversales</h3>
             </header>

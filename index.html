@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tanjona Rakotoarisoa — Développeur Full Stack & Testeur QA</title>
+    <title>Tanjona Rakotoarisoa — Développeur Full Stack &amp; Testeur QA</title>
     <meta
       name="description"
-      content="Portfolio de Tanjona Nomenjanahary RAKOTOARISOA, développeur Full Stack (React, Next.js, Node.js) et testeur QA basé à Antananarivo, Madagascar."
+      content="Portfolio de Tanjona Nomenjanahary RAKOTOARISOA, développeur Full Stack (React, Next.js, Node.js) et testeur QA basé à Antananarivo, Madagascar. Projets, parcours et contact."
     />
     <meta name="author" content="Tanjona Nomenjanahary RAKOTOARISOA" />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#5b5bf0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -19,7 +20,33 @@
       property="og:description"
       content="Applications web modernes et testées avec React, Next.js et Node.js. Découvrez mes projets et contactez-moi."
     />
+    <meta property="og:site_name" content="Tanjona Rakotoarisoa" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Tanjona Rakotoarisoa — Développeur Full Stack &amp; Testeur QA" />
+    <meta
+      name="twitter:description"
+      content="Applications web modernes et testées avec React, Next.js et Node.js."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tanjona Nomenjanahary RAKOTOARISOA",
+        "jobTitle": "Développeur Full Stack & Testeur QA",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Antananarivo",
+          "addressCountry": "MG"
+        },
+        "alumniOf": "ESMIA — École Supérieure de Management et d'Informatique Appliquée",
+        "knowsAbout": ["React", "Next.js", "Node.js", "TypeScript", "PHP", "MySQL", "PostgreSQL", "MongoDB", "Tests QA"],
+        "sameAs": [
+          "https://github.com/RataneRak",
+          "https://linkedin.com/in/ratane-rakotoarisoa-b26b22286"
+        ]
+      }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,6 +65,12 @@
     </script>
   </head>
   <body>
+    <noscript>
+      <p style="padding: 24px; font-family: system-ui, sans-serif">
+        Ce site nécessite JavaScript. Vous pouvez me contacter à
+        <a href="mailto:rakotoarisoaratane@gmail.com">rakotoarisoaratane@gmail.com</a>.
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,9 +1,10 @@
 import { Header, Footer } from "./components/layout";
-import { useSmoothScroll } from "./hooks";
-import { Hero, About, Experience, Skills, Projects, Contact } from "./components/sections";
+import { useSmoothScroll, useSpotlight } from "./hooks";
+import { Hero, TechMarquee, About, Experience, Skills, Projects, Contact } from "./components/sections";
 
 function App() {
   useSmoothScroll();
+  useSpotlight();
 
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
       <Header />
       <main id="main">
         <Hero />
+        <TechMarquee />
         <About />
         <Experience />
         <Skills />

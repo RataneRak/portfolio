@@ -9,7 +9,7 @@ const About = () => {
 
   const personalInfo = [
     { label: "Nom", value: `${profile.lastName} ${profile.firstName}` },
-    { label: "Âge", value: `${new Date().getFullYear() - profile.birthYear} ans` },
+    { label: "Formation", value: "Master en Ingénierie Informatique" },
     { label: "Localisation", value: profile.location },
     { label: "Disponibilité", value: profile.availability },
   ];
@@ -19,6 +19,7 @@ const About = () => {
       <div className="container">
         <SectionHeader
           id="apropos-title"
+          index="01"
           eyebrow="À propos"
           title="Profil"
           subtitle="Concevoir, développer et tester : transformer des besoins métier en produits web fiables, rapides et agréables à utiliser."
@@ -59,7 +60,7 @@ const About = () => {
 
           <div className="stats-grid stagger" style={{ "--stagger-base": "150ms" } as CSSProperties}>
             {stats.map((stat) => (
-              <div key={stat.label} className="stat-card">
+              <div key={stat.label} className="stat-card spotlight">
                 <span className="stat-value gradient-text">{stat.value}</span>
                 <span className="stat-label">{stat.label}</span>
               </div>

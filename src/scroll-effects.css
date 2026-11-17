@@ -34,25 +34,7 @@
       animation-range: entry 0% entry 70%;
     }
 
-    /* 3. Titres : le texte se « remplit » de couleur au fil du scroll */
-    .title-fill {
-      background: linear-gradient(
-          90deg,
-          var(--text) 0%,
-          var(--text) 50%,
-          color-mix(in srgb, var(--text) 18%, transparent) 50.1%
-        )
-        0 0 / 200% 100% no-repeat;
-      background-position: 100% 0;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: title-fill linear both;
-      animation-timeline: view();
-      animation-range: entry 40% cover 45%;
-    }
-
-    /* 4. Parcours : la ligne se dessine au rythme de la lecture,
+    /* 3. Parcours : la ligne se dessine au rythme de la lecture,
           et chaque étape s'allume quand elle passe au centre de l'écran */
     .career .timeline {
       view-timeline: --career block;
@@ -77,22 +59,11 @@
       animation-range: entry 60% cover 45%;
     }
 
-    /* 5. Projets : parallaxe de l'image à l'intérieur de la carte */
-    .project-media img,
-    .project-media-icon {
+    /* 4. Projets : parallaxe de l'image à l'intérieur de la carte */
+    .project-media img {
       animation: media-parallax linear both;
       animation-timeline: view();
       animation-range: cover;
-    }
-
-    /* 6. Blocs d'appel à l'action et formulaire : bascule 3D en entrant */
-    .projects-cta,
-    .contact-form {
-      animation-name: tilt-in;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 90%;
     }
   }
 }
@@ -126,12 +97,6 @@
   }
 }
 
-@keyframes title-fill {
-  to {
-    background-position: 0 0;
-  }
-}
-
 @keyframes line-draw {
   from {
     scale: 1 0;
@@ -161,16 +126,5 @@
   to {
     translate: 0 10%;
     scale: 1.18;
-  }
-}
-
-@keyframes tilt-in {
-  from {
-    opacity: 0;
-    transform: perspective(900px) rotateX(18deg) translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }

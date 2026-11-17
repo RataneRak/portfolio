@@ -26,6 +26,28 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Verre « Liquid Glass » (en-tête) */
+  --glass-tint: rgba(255, 255, 255, 0.3);
+  --glass-tint-strong: rgba(255, 255, 255, 0.62);
+  --glass-sheen: rgba(255, 255, 255, 0.45);
+  --glass-rim: rgba(255, 255, 255, 0.95);
+  --glass-rim-soft: rgba(255, 255, 255, 0.35);
+  --glass-filter: blur(14px) saturate(190%) brightness(1.04);
+  --glass-filter-strong: blur(26px) saturate(190%);
+  --glass-tint-clear: rgba(255, 255, 255, 0.18);
+  --glass-halo: rgba(255, 255, 255, 0.95);
+  --drop-tint: rgba(255, 255, 255, 0.6);
+  --drop-sheen: rgba(255, 255, 255, 0.7);
+  --drop-glow: rgba(255, 255, 255, 0.35);
+  --drop-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.95), inset 0 -1px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -6px 10px -6px rgba(16, 24, 40, 0.18), inset 0 0 0 0.5px rgba(16, 24, 40, 0.08),
+    0 6px 16px -6px rgba(16, 24, 40, 0.3);
+  --glass-edge: inset 0 0 0 0.5px rgba(16, 24, 40, 0.06), inset 0 -6px 12px -8px rgba(16, 24, 40, 0.12);
+  --glass-inner: inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 -1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 0 16px rgba(255, 255, 255, 0.28);
+  --glass-shadow: 0 12px 34px -12px rgba(16, 24, 40, 0.28), 0 2px 6px -2px rgba(16, 24, 40, 0.08);
+
   color-scheme: light;
 }
 
@@ -45,6 +67,26 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+
+  --glass-tint: rgba(22, 28, 46, 0.34);
+  --glass-tint-strong: rgba(18, 23, 38, 0.7);
+  --glass-sheen: rgba(255, 255, 255, 0.09);
+  --glass-rim: rgba(255, 255, 255, 0.4);
+  --glass-rim-soft: rgba(255, 255, 255, 0.1);
+  --glass-filter: blur(14px) saturate(170%) brightness(0.95);
+  --glass-tint-clear: rgba(20, 26, 44, 0.24);
+  --glass-halo: rgba(8, 11, 20, 0.85);
+  --drop-tint: rgba(255, 255, 255, 0.07);
+  --drop-sheen: rgba(255, 255, 255, 0.22);
+  --drop-glow: rgba(139, 139, 255, 0.18);
+  --drop-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(255, 255, 255, 0.08),
+    inset 0 -6px 10px -6px rgba(0, 0, 0, 0.5), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1),
+    0 6px 16px -6px rgba(0, 0, 0, 0.6);
+  --glass-edge: inset 0 0 0 0.5px rgba(255, 255, 255, 0.06), inset 0 -6px 12px -8px rgba(0, 0, 0, 0.5);
+  --glass-inner: inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 0 16px rgba(255, 255, 255, 0.04);
+  --glass-shadow: 0 12px 34px -12px rgba(0, 0, 0, 0.6), 0 2px 6px -2px rgba(0, 0, 0, 0.3);
+
   color-scheme: dark;
 }
 
@@ -230,6 +272,52 @@ button {
   color: var(--text-muted);
   background: var(--surface-2);
   border: 1px solid var(--border);
+}
+
+/* ===== Halo qui suit le pointeur (voir useSpotlight) ===== */
+.spotlight {
+  position: relative;
+}
+
+.spotlight::before,
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* Lueur diffuse dans la carte */
+.spotlight::after {
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 60%
+  );
+}
+
+/* Bordure qui s'illumine sous le pointeur */
+.spotlight::before {
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 85%, transparent),
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover::before,
+  .spotlight:hover::after {
+    opacity: 1;
+  }
 }
 
 /* Scrollbar */

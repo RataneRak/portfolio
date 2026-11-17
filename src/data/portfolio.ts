@@ -11,7 +11,6 @@ export const profile = {
     "Conception, développement et test d'applications web fiables et performantes avec React, Next.js et Node.js — de l'API à l'interface, avec la qualité comme exigence.",
   photo: "/profile.webp",
   location: "Antananarivo, Madagascar",
-  birthYear: 2001, // l'âge affiché est calculé automatiquement à partir de l'année
   availability: "Ouvert aux opportunités",
   // Déposez votre CV dans /public (ex. /cv-tanjona-rakotoarisoa.pdf) et renseignez son chemin :
   // le bouton « Télécharger le CV » apparaîtra automatiquement.
@@ -39,7 +38,7 @@ export const stats = [
   { value: "4", label: "Expériences professionnelles" },
   { value: "5", label: "Projets livrés" },
   { value: "Dev + QA", label: "Double compétence" },
-  { value: "Master", label: "Ingénierie informatique" },
+  { value: "Bac+5", label: "Master en ingénierie informatique" },
 ];
 
 export const experiences = [

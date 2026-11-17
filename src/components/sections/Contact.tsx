@@ -48,9 +48,10 @@ const Contact = () => {
       <div className="container">
         <SectionHeader
           id="contact-title"
+          index="05"
           eyebrow="Contact"
           title="Travaillons ensemble"
-          subtitle="Une offre d'emploi, une mission ou un projet ? Réponse rapide garantie."
+          subtitle="Une offre d'emploi, une mission ou un projet ? Réponse sous 48 heures ouvrées."
         />
 
         <div ref={ref} className={`contact-grid reveal ${inView ? "is-visible" : ""}`}>
@@ -95,7 +96,16 @@ const Contact = () => {
             </div>
           </aside>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form spotlight" onSubmit={handleSubmit}>
+            {/* Champ piège anti-spam (Formspree) : invisible pour les humains */}
+            <input
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+              className="visually-hidden"
+              aria-hidden="true"
+            />
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Nom complet</label>
@@ -105,6 +115,7 @@ const Contact = () => {
                   type="text"
                   autoComplete="name"
                   required
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Jean Rakoto"
@@ -132,6 +143,7 @@ const Contact = () => {
                 name="subject"
                 type="text"
                 required
+                maxLength={150}
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="Création d'un site web"
@@ -145,6 +157,8 @@ const Contact = () => {
                 name="message"
                 rows={6}
                 required
+                minLength={10}
+                maxLength={5000}
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Décrivez votre projet ou votre demande…"

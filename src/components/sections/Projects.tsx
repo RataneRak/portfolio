@@ -29,13 +29,31 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const Icon = categoryIcons[project.category];
 
   return (
-    <article className={`project-card ${project.featured ? "is-featured" : ""}`}>
+    <article className={`project-card spotlight ${project.featured ? "is-featured" : ""}`}>
       <div className={`project-media media-${project.category}`}>
-        {project.image ? (
-          <img src={project.image} alt={`Aperçu : ${project.title}`} loading="lazy" />
-        ) : (
-          <Icon className="project-media-icon" aria-hidden="true" />
-        )}
+        <div className="project-window">
+          <div className="window-bar" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="window-body">
+            {project.image ? (
+              <img src={project.image} alt={`Aperçu : ${project.title}`} loading="lazy" />
+            ) : (
+              <div className="window-placeholder" aria-hidden="true">
+                <span className="placeholder-icon">
+                  <Icon className="project-media-icon" />
+                </span>
+                <span className="placeholder-lines">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
         {project.featured && <span className="project-badge">À la une</span>}
       </div>
 
@@ -98,6 +116,7 @@ const Projects = () => {
       <div className="container">
         <SectionHeader
           id="projets-title"
+          index="04"
           eyebrow="Projets"
           title="Réalisations"
           subtitle="Une sélection de projets menés en entreprise, en stage et en indépendant — du e-commerce aux applications métier."
@@ -123,7 +142,7 @@ const Projects = () => {
             ))}
           </div>
 
-          <div className="projects-cta">
+          <div className="projects-cta spotlight">
             <div>
               <h3>Un projet ou un poste à pourvoir&nbsp;?</h3>
               <p>Discutons de vos besoins en développement ou en assurance qualité.</p>

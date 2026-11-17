@@ -1,3 +1,11 @@
+/* =====================================================================
+   En-tête « Liquid Glass » (style iOS) : au défilement, la barre devient
+   une pilule de verre flottante qui floute et sature le contenu dessous,
+   avec un liseré lumineux sur les bords et un reflet en partie haute.
+   Le verre est porté par un pseudo-élément (et non par .header-inner)
+   pour que le menu mobile, enfant de la pilule, puisse avoir son propre flou.
+   ===================================================================== */
+
 .scroll-progress {
   position: absolute;
   left: 0;
@@ -8,6 +16,12 @@
   transform: scaleX(var(--progress, 0));
   transform-origin: left;
   pointer-events: none;
+}
+
+/* Une fois la pilule affichée, la progression passe tout en haut de l'écran */
+.header.is-scrolled .scroll-progress {
+  top: 0;
+  bottom: auto;
 }
 
 .theme-icon {
@@ -32,25 +46,113 @@
   inset: 0 0 auto 0;
   z-index: 1000;
   height: var(--header-h);
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Fond quasi opaque plutôt qu'un backdrop-filter, très coûteux pendant le scroll */
-.header.is-scrolled {
-  background: color-mix(in srgb, var(--bg) 96%, transparent);
-  border-bottom-color: var(--border);
-  box-shadow: 0 4px 20px -12px rgba(16, 24, 40, 0.18);
-}
-
+/* ===== La pilule ===== */
 .header-inner {
+  position: relative;
+  isolation: isolate;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  border-radius: 999px;
+  transition: max-width 0.55s var(--ease-out), width 0.55s var(--ease-out),
+    height 0.55s var(--ease-out), translate 0.55s var(--ease-out), padding 0.55s var(--ease-out);
 }
 
+/* Corps du verre : flou + saturation de l'arrière-plan, teinte légère, reflet haut */
+.header-inner::before,
+.header-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.header-inner::before {
+  background: linear-gradient(180deg, var(--glass-sheen) 0%, transparent 55%), var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  box-shadow: var(--glass-inner), var(--glass-shadow);
+}
+
+/* Liseré : la lumière accroche les bords haut-gauche et bas-droit */
+.header-inner::after {
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    var(--glass-rim) 0%,
+    var(--glass-rim-soft) 30%,
+    var(--glass-rim-soft) 70%,
+    var(--glass-rim) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+.header.is-scrolled .header-inner::before,
+.header.is-scrolled .header-inner::after {
+  opacity: 1;
+}
+
+/* ===== Réfraction (navigateurs Chromium) : effet miroir complet =====
+   Le décor est courbé sur les bords par le filtre SVG #liquid-glass
+   (voir LiquidGlassFilter.tsx), avec un flou très léger pour un verre limpide. */
+.liquid-glass-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.header-inner.has-refraction::before {
+  background:
+    radial-gradient(120% 140% at 15% -30%, var(--glass-sheen) 0%, transparent 45%),
+    linear-gradient(180deg, color-mix(in srgb, var(--glass-sheen) 60%, transparent) 0%, transparent 50%),
+    var(--glass-tint-clear);
+  -webkit-backdrop-filter: url(#liquid-glass) blur(2.5px) saturate(180%) brightness(1.05);
+  backdrop-filter: url(#liquid-glass) blur(2.5px) saturate(180%) brightness(1.05);
+  box-shadow: var(--glass-inner), var(--glass-edge), var(--glass-shadow);
+}
+
+.header-inner.has-refraction::after {
+  padding: 1.5px;
+}
+
+/* « Vibrancy » façon iOS : un halo détache le texte du décor visible à travers le verre */
+.header.is-scrolled .has-refraction .logo-text,
+.header.is-scrolled .has-refraction .nav-list a {
+  text-shadow: 0 0 6px var(--glass-halo), 0 0 14px var(--glass-halo);
+}
+
+.header.is-scrolled .has-refraction .nav-list a {
+  color: var(--text);
+}
+
+.header.is-scrolled .has-refraction .nav-list a.active {
+  color: var(--accent);
+}
+
+.header.is-scrolled .header-inner {
+  height: 58px;
+  translate: 0 10px;
+  padding: 0 8px 0 10px;
+}
+
+@media (min-width: 1001px) {
+  .header.is-scrolled .header-inner {
+    max-width: 960px;
+  }
+}
+
+/* ===== Contenu ===== */
 .logo {
   display: inline-flex;
   align-items: center;
@@ -68,6 +170,16 @@
   color: #fff;
   font-size: 0.9rem;
   letter-spacing: 0.02em;
+  /* Aspect glacé, comme une icône iOS */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 4px 10px -4px color-mix(in srgb, var(--accent) 70%, transparent);
+  transition: width 0.45s var(--ease-out), height 0.45s var(--ease-out);
+}
+
+.header.is-scrolled .logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
 .logo-text {
@@ -86,7 +198,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text-muted);
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, scale 0.35s var(--ease-spring);
 }
 
 .nav-list a:hover {
@@ -98,52 +210,135 @@
   background: var(--accent-soft);
 }
 
+/* Retour tactile : le verre « s'enfonce » légèrement à la pression */
+.nav-list a:active,
+.icon-btn:active {
+  scale: 0.92;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
+/* Boutons ronds en verre */
 .icon-btn {
   display: grid;
   place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  border-radius: 50%;
+  border: 1px solid var(--glass-rim-soft);
+  background: linear-gradient(180deg, var(--glass-sheen), transparent 70%), var(--glass-tint);
+  box-shadow: var(--glass-inner), 0 2px 8px -3px rgba(16, 24, 40, 0.2);
   font-size: 1.1rem;
   color: var(--text);
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease, scale 0.35s var(--ease-spring), box-shadow 0.2s ease;
 }
 
 .icon-btn:hover {
-  border-color: var(--accent);
   color: var(--accent);
+  box-shadow: var(--glass-inner), 0 0 0 3px var(--accent-soft), 0 2px 8px -3px rgba(16, 24, 40, 0.2);
 }
 
 .menu-toggle {
   display: none;
 }
 
+/* ===== Bureau : « lentille » de verre qui glisse sous le lien actif ===== */
+@media (min-width: 1001px) {
+  .nav {
+    position: relative;
+  }
+
+  .nav-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--ind-w, 0);
+    translate: var(--ind-x, 0) 0;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: translate 0.5s var(--ease-spring), width 0.5s var(--ease-spring), opacity 0.3s ease;
+  }
+
+  .nav[data-indicator="on"] .nav-indicator {
+    opacity: 1;
+  }
+
+  .nav-list {
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav[data-indicator="on"] .nav-list a.active {
+    background: transparent;
+  }
+
+  /* ----- Goutte de verre sous le libellé actif : reflets et liseré, texte intact */
+  .nav-indicator {
+    background:
+      radial-gradient(90% 120% at 25% -10%, var(--drop-sheen) 0%, transparent 55%),
+      radial-gradient(70% 90% at 80% 120%, var(--drop-glow) 0%, transparent 60%),
+      var(--drop-tint);
+    box-shadow: var(--drop-shadow);
+    transition: translate 0.55s var(--ease-spring), width 0.55s var(--ease-spring),
+      scale 0.45s var(--ease-spring), opacity 0.3s ease;
+  }
+
+  /* Liseré lumineux de la goutte */
+  .nav-indicator::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--glass-rim) 0%, transparent 35%, transparent 65%, var(--glass-rim) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+
+  /* Comportement liquide : la goutte s'étire en glissant et gonfle à la pression */
+  .nav[data-moving] .nav-indicator {
+    scale: 1.12 0.9;
+  }
+
+  .nav:has(.nav-list a:active) .nav-indicator {
+    scale: 1.14;
+  }
+}
+
+/* ===== Mobile : pilule flottante + menu en panneau de verre ===== */
 @media (max-width: 1000px) {
   .menu-toggle {
     display: grid;
   }
 
+  .header.is-scrolled .header-inner {
+    width: calc(100% - 20px);
+  }
+
   .nav {
     position: absolute;
-    top: var(--header-h);
+    top: calc(100% + 10px);
     left: 0;
     right: 0;
-    padding: 8px 16px 16px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    padding: 10px;
+    border-radius: 26px;
+    border: 1px solid var(--glass-rim-soft);
+    background: linear-gradient(180deg, var(--glass-sheen), transparent 40%), var(--glass-tint-strong);
+    -webkit-backdrop-filter: var(--glass-filter-strong);
+    backdrop-filter: var(--glass-filter-strong);
+    box-shadow: var(--glass-inner), var(--glass-shadow);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), visibility 0.3s;
+    transform: translateY(-8px) scale(0.97);
+    transform-origin: top center;
+    transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-spring), visibility 0.3s;
   }
 
   .nav.nav-open {
@@ -174,7 +369,24 @@
   }
 
   .nav-list a {
-    padding: 12px 14px;
-    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+}
+
+/* Navigateur sans flou d'arrière-plan, ou réglage « Réduire la transparence » : verre dépoli opaque */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header-inner::before,
+  .nav {
+    background: var(--surface);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .header-inner::before,
+  .nav {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }

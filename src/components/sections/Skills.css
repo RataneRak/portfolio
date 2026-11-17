@@ -174,7 +174,7 @@
 .fx-stomp:hover .skill-icon svg { animation: fx-stomp 0.8s ease-in infinite; transform-origin: bottom; }
 /* MongoDB / feuille — bouge au vent */
 .fx-leaf:hover .skill-icon svg { animation: fx-leaf 1.6s ease-in-out infinite; transform-origin: 50% 100%; }
-/* Responsive / multi-supports — l'écran se redimensionne */
+/* Responsive — l'écran se redimensionne */
 .fx-resize:hover .skill-icon svg { animation: fx-resize 1.2s var(--ease-spring) infinite; }
 /* Tailwind / vague — ondule comme le vent */
 .fx-wind:hover .skill-icon svg { animation: fx-wind 1s ease-in-out infinite; }
@@ -184,8 +184,6 @@
 .fx-branch:hover .skill-icon svg { animation: fx-branch 1.2s var(--ease-spring) infinite; transform-origin: 50% 100%; }
 /* GitHub / Octocat — saute de joie */
 .fx-jump:hover .skill-icon svg { animation: fx-jump 0.9s var(--ease-out) infinite; }
-/* VS Code — va-et-vient du curseur */
-.fx-code:hover .skill-icon svg { animation: fx-code 0.8s ease-in-out infinite; }
 /* API REST — émet un signal */
 .fx-ping .skill-icon::after {
   content: "";
@@ -196,22 +194,12 @@
   opacity: 0;
 }
 .fx-ping:hover .skill-icon::after { animation: fx-ping 1.2s var(--ease-out) infinite; }
-/* Terminal — curseur qui clignote */
-.fx-blink:hover .skill-icon svg { animation: fx-blink 0.9s steps(1) infinite; }
 /* Agile — cycle itératif */
 .fx-cycle:hover .skill-icon svg { animation: fx-cycle 1.6s var(--ease-spring) infinite; }
-/* Tests fonctionnels / éprouvette — on agite */
-.fx-bubble:hover .skill-icon svg { animation: fx-bubble 0.5s ease-in-out infinite; transform-origin: 50% 20%; }
-/* Régression / adaptabilité — retour en arrière */
+/* Adaptabilité — retour en arrière */
 .fx-rewind:hover svg { animation: fx-rewind 1s var(--ease-spring) infinite; }
-/* Plans de test / gestion de projet — validation */
+/* Gestion de projet — validation */
 .fx-check:hover svg { animation: fx-check 0.9s var(--ease-spring) infinite; }
-/* Bug — rampe */
-.fx-crawl:hover .skill-icon svg { animation: fx-crawl 0.7s steps(4) infinite; }
-/* Postman — la fusée décolle */
-.fx-launch:hover .skill-icon svg { animation: fx-launch 1s ease-in infinite; }
-/* Recette — coup de tampon « validé » */
-.fx-stamp:hover .skill-icon svg { animation: fx-stamp 1s var(--ease-out) infinite; }
 /* Communication — la bulle parle */
 .fx-talk:hover svg { animation: fx-talk 0.6s ease-in-out infinite; transform-origin: 20% 90%; }
 /* Résolution de problèmes — la pièce s'emboîte */
@@ -287,34 +275,13 @@
   55% { transform: translateY(-8px) rotate(10deg); }
   80% { transform: translateY(0) rotate(0); }
 }
-@keyframes fx-code { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
 @keyframes fx-ping { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.7); opacity: 0; } }
-@keyframes fx-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
 @keyframes fx-cycle { to { transform: rotate(360deg); } }
-@keyframes fx-bubble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
 @keyframes fx-rewind { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
 @keyframes fx-check {
   0%, 100% { transform: scale(1); }
   40% { transform: scale(1.3) rotate(-8deg); }
   60% { transform: scale(0.95); }
-}
-@keyframes fx-crawl {
-  0% { transform: translateX(-3px) rotate(-10deg); }
-  25% { transform: translateX(-1px) rotate(10deg); }
-  50% { transform: translateX(1px) rotate(-10deg); }
-  75% { transform: translateX(3px) rotate(10deg); }
-  100% { transform: translateX(-3px) rotate(-10deg); }
-}
-@keyframes fx-launch {
-  0% { transform: translate(0, 0); opacity: 1; }
-  60% { transform: translate(8px, -14px); opacity: 0; }
-  61% { transform: translate(-8px, 14px); opacity: 0; }
-  100% { transform: translate(0, 0); opacity: 1; }
-}
-@keyframes fx-stamp {
-  0% { transform: scale(1.6) rotate(-12deg); opacity: 0; }
-  35% { transform: scale(0.9) rotate(-6deg); opacity: 1; }
-  50%, 100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 @keyframes fx-talk { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(-12deg) scale(1.12); } }
 @keyframes fx-snap {

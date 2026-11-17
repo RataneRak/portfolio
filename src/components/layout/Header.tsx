@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
 import { navItems, profile } from "../../data/portfolio";
 import { useActiveSection, useTheme } from "../../hooks";
+import LiquidGlassFilter from "./LiquidGlassFilter";
+import { LIQUID_GLASS_FILTER_ID, useLiquidGlass } from "./useLiquidGlass";
 import "./Header.css";
 
 const sectionIds = navItems.map((item) => item.id);
@@ -12,6 +14,35 @@ const Header = () => {
   const activeSection = useActiveSection(sectionIds);
   const { theme, toggleTheme } = useTheme();
   const progressRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const glassMap = useLiquidGlass(innerRef);
+
+  // Indicateur glissant : se cale sous le lien actif (bureau uniquement, voir Header.css)
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const place = () => {
+      const link = nav.querySelector<HTMLElement>(`a[href="#${activeSection}"]`);
+      if (!link) return;
+      nav.style.setProperty("--ind-x", `${link.offsetLeft}px`);
+      nav.style.setProperty("--ind-w", `${link.offsetWidth}px`);
+      // La goutte s'étire pendant qu'elle glisse, puis reprend sa forme
+      if (nav.dataset.indicator === "on") {
+        nav.dataset.moving = "true";
+        window.clearTimeout(movingTimer);
+        movingTimer = window.setTimeout(() => delete nav.dataset.moving, 380);
+      }
+      nav.dataset.indicator = "on";
+    };
+    let movingTimer = 0;
+    place();
+    window.addEventListener("resize", place);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.clearTimeout(movingTimer);
+    };
+  }, [activeSection]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,13 +65,15 @@ const Header = () => {
 
   return (
     <header className={`header ${isScrolled || isMenuOpen ? "is-scrolled" : ""}`}>
-      <div className="container header-inner">
+      {glassMap && <LiquidGlassFilter id={LIQUID_GLASS_FILTER_ID} map={glassMap} scale={44} />}
+      <div ref={innerRef} className={`container header-inner ${glassMap ? "has-refraction" : ""}`}>
         <a href="#accueil" className="logo" aria-label="Retour à l'accueil">
           <span className="logo-mark">{profile.initials}</span>
           <span className="logo-text">{profile.shortName}</span>
         </a>
 
         <nav
+          ref={navRef}
           id="main-nav"
           className={`nav ${isMenuOpen ? "nav-open" : ""}`}
           aria-label="Navigation principale"
@@ -59,6 +92,7 @@ const Header = () => {
               </li>
             ))}
           </ul>
+          <span className="nav-indicator" aria-hidden="true" />
         </nav>
 
         <div className="header-actions">

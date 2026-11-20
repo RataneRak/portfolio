@@ -1,144 +1,232 @@
-# Portfolio Personnel - Développeur Full Stack
+# Portfolio — Tanjona RAKOTOARISOA
 
-Un portfolio moderne et responsive créé avec React, TypeScript et Vite. Ce projet présente mes compétences, expériences et projets de manière professionnelle et attrayante.
+Portfolio personnel présentant mon profil, mes expériences, mes compétences et mes projets, avec une interface responsive en thème clair/sombre.
 
-## 🚀 Fonctionnalités
+**Démo :** [portfolio-ratane.vercel.app](https://portfolio-ratane.vercel.app)
 
-- **Design moderne et responsive** : Interface utilisateur élégante qui s'adapte à tous les appareils
-- **Animations fluides** : Transitions et animations CSS pour une expérience utilisateur optimale
-- **Navigation fluide** : Défilement doux entre les sections
-- **Formulaire de contact** : Formulaire fonctionnel pour les messages
-- **Filtres de projets** : Possibilité de filtrer les projets par catégorie
-- **Barres de progression animées** : Visualisation interactive des compétences
-- **Optimisé pour le SEO** : Métadonnées et structure HTML optimisées
+![React](https://img.shields.io/badge/React-19-087ea4?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss&logoColor=white)
 
-## 🛠️ Technologies utilisées
+## Aperçu
 
-- **React 18** : Bibliothèque JavaScript pour l'interface utilisateur
-- **TypeScript** : Typage statique pour un code plus robuste
-- **Vite** : Outil de build rapide et moderne
-- **CSS3** : Styles personnalisés avec animations et transitions
-- **Responsive Design** : Design adaptatif pour mobile, tablette et desktop
+Ce portfolio met en avant mon parcours de développeur Full Stack et testeur QA.
 
-## 📁 Structure du projet
+Il présente :
 
+- mon profil et mes informations de contact ;
+- mes expériences professionnelles ;
+- mon parcours académique ;
+- mes compétences techniques ;
+- une sélection de projets ;
+- un formulaire de contact ;
+- les modes clair et sombre ;
+- une navigation adaptée aux mobiles ;
+- des animations d'apparition au défilement ;
+- une mise en page optimisée pour l'accessibilité.
+
+## Fonctionnalités
+
+- Navigation fixe avec suivi de la section active
+- Menu responsive pour mobile
+- Thème clair et sombre avec transition circulaire
+- Effet « spotlight » suivant le pointeur
+- Défilement fluide avec Lenis
+- Animations et apparitions progressives
+- Bandeau défilant des technologies
+- Filtres par catégorie de projet
+- Liens conditionnels vers les projets et dépôts GitHub
+- Téléchargement optionnel du CV
+- Formulaire de contact via Formspree
+- Compatibilité avec `prefers-reduced-motion`
+- Lien d'accès rapide vers le contenu principal
+
+## Stack technique
+
+| Technologie | Usage |
+|---|---|
+| React 19 | Interface utilisateur |
+| TypeScript | Typage et logique applicative |
+| Vite | Développement et build |
+| Tailwind CSS | Intégration de styles |
+| CSS | Design, thèmes, animations et responsive |
+| Lenis | Défilement fluide |
+| React Icons | Icônes de l'interface |
+| Formspree | Transmission des messages du formulaire |
+| ESLint | Analyse statique du code |
+
+## Structure du projet
+
+```text
+portfolio/
+├── public/
+│   ├── favicon.svg
+│   ├── profile.webp
+│   ├── photo.webp
+│   └── revendeur.webp
+├── src/
+│   ├── components/
+│   │   ├── layout/       # En-tête, pied de page et effet Liquid Glass
+│   │   ├── sections/     # Sections du portfolio
+│   │   └── ui/           # Boutons et titres réutilisables
+│   ├── data/
+│   │   └── portfolio.ts  # Contenu principal du portfolio
+│   ├── hooks/
+│   │   └── use*.ts       # Thème, défilement, navigation et animations
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+│   └── scroll-effects.css
+├── index.html
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
 ```
-src/
-├── components/          # Composants React
-│   ├── Header.tsx      # Navigation principale
-│   ├── Hero.tsx        # Section d'accueil
-│   ├── About.tsx       # Section "À propos"
-│   ├── Skills.tsx      # Section compétences
-│   ├── Projects.tsx    # Section projets
-│   ├── Contact.tsx     # Section contact
-│   ├── Footer.tsx      # Pied de page
-│   └── *.css           # Styles des composants
-├── App.tsx             # Composant principal
-├── main.tsx           # Point d'entrée
-└── index.css          # Styles globaux
-```
 
-## 🎨 Sections du portfolio
+## Sections
 
-1. **Header** : Navigation fixe avec menu hamburger pour mobile
-2. **Hero** : Section d'accueil avec présentation et call-to-action
-3. **À propos** : Informations personnelles, expérience et formation
-4. **Compétences** : Compétences techniques et transversales avec barres de progression
-5. **Projets** : Portfolio de projets avec filtres par catégorie
-6. **Contact** : Formulaire de contact et informations de contact
-7. **Footer** : Liens de navigation et réseaux sociaux
+- **Accueil** : présentation, photo, rôle et technologies principales
+- **À propos** : profil, localisation et statistiques
+- **Expérience** : parcours professionnel et missions
+- **Compétences** : technologies et compétences techniques
+- **Projets** : réalisations filtrables avec descriptions et liens
+- **Contact** : coordonnées et formulaire de contact
+- **Pied de page** : réseaux sociaux et navigation
 
-## 🚀 Installation et utilisation
+## Installation
 
 ### Prérequis
-- Node.js (version 16 ou supérieure)
-- npm ou yarn
 
-### Installation
+- Node.js 20 ou supérieur
+- npm
 
-1. Clonez le repository :
+### Cloner le projet
+
 ```bash
-git clone <url-du-repo>
+git clone https://github.com/RataneRak/portfolio.git
 cd portfolio
 ```
 
-2. Installez les dépendances :
+### Installer les dépendances
+
 ```bash
 npm install
 ```
 
-3. Lancez le serveur de développement :
+### Lancer le serveur de développement
+
 ```bash
 npm run dev
 ```
 
-4. Ouvrez votre navigateur et allez sur `http://localhost:5173`
+Vite affiche ensuite l'adresse locale du projet, généralement :
 
-### Build pour la production
+```text
+http://localhost:5173
+```
+
+### Générer une version de production
 
 ```bash
 npm run build
 ```
 
-### Prévisualisation du build
+### Prévisualiser le build
 
 ```bash
 npm run preview
 ```
 
-## ✏️ Personnalisation
+### Vérifier le code avec ESLint
 
-### Informations personnelles
-Modifiez les fichiers suivants pour personnaliser vos informations :
+```bash
+npm run lint
+```
 
-- `src/components/Hero.tsx` : Nom et titre
-- `src/components/About.tsx` : Expérience, formation et informations personnelles
-- `src/components/Skills.tsx` : Compétences et certifications
-- `src/components/Projects.tsx` : Projets et liens
-- `src/components/Contact.tsx` : Informations de contact
-- `src/components/Footer.tsx` : Liens sociaux
+## Personnalisation
 
-### Couleurs et thème
-Les couleurs principales sont définies dans les fichiers CSS :
-- Couleur primaire : `#667eea`
-- Couleur secondaire : `#764ba2`
-- Couleur d'accent : `#ffd700`
+La majorité du contenu est centralisée dans :
 
-### Images et médias
-- Remplacez les emojis par vos propres images
-- Ajoutez vos photos de profil
-- Intégrez des captures d'écran de vos projets
+```text
+src/data/portfolio.ts
+```
 
-## 📱 Responsive Design
+Vous pouvez y modifier :
 
-Le portfolio est entièrement responsive et s'adapte à :
-- **Mobile** : < 768px
-- **Tablette** : 768px - 1024px
-- **Desktop** : > 1024px
+- le nom, le rôle et la photo ;
+- le titre professionnel ;
+- les coordonnées ;
+- les liens GitHub et LinkedIn ;
+- les statistiques ;
+- les expériences ;
+- la formation ;
+- les compétences ;
+- les projets ;
+- les filtres de projets ;
+- le lien vers le CV ;
+- le point d'accès du formulaire.
 
-## 🔧 Fonctionnalités avancées
+### Ajouter un CV
 
-- **Intersection Observer** : Animations au scroll
-- **Smooth scrolling** : Navigation fluide entre les sections
-- **Form validation** : Validation des formulaires
-- **Loading states** : États de chargement pour les interactions
-- **Accessibility** : Support des lecteurs d'écran et navigation au clavier
+Placez le fichier PDF dans `public/`, puis renseignez son chemin dans `src/data/portfolio.ts` :
 
-## 📄 Licence
+```ts
+cvUrl: "/cv-tanjona-rakotoarisoa.pdf",
+```
 
-Ce projet est sous licence MIT. Vous êtes libre de l'utiliser et de le modifier selon vos besoins.
+### Ajouter un projet
 
-## 🤝 Contribution
+Dans `projects`, ajoutez une entrée contenant par exemple :
 
-Les contributions sont les bienvenues ! N'hésitez pas à :
-- Signaler des bugs
-- Proposer des améliorations
-- Soumettre des pull requests
+```ts
+{
+  id: "nouveau-projet",
+  title: "Nom du projet",
+  year: "2026",
+  context: "Projet personnel",
+  description: "Description courte du projet.",
+  category: "web",
+  technologies: ["React", "TypeScript"],
+  image: "/projet.webp",
+  link: "https://example.com",
+  github: "https://github.com/utilisateur/projet",
+  featured: true,
+}
+```
 
-## 📞 Contact
+Les boutons **Voir le site** et **Code source** apparaissent uniquement lorsque les propriétés correspondantes sont renseignées.
 
-Pour toute question ou suggestion, n'hésitez pas à me contacter via le formulaire du portfolio ou directement par email.
+### Modifier les couleurs
 
----
+Les variables de thème se trouvent dans `src/index.css`.
 
-**Note** : N'oubliez pas de remplacer toutes les informations d'exemple par vos propres données avant de déployer votre portfolio !
+```css
+:root {
+  --accent: #5b5bf0;
+  --accent-2: #06b6d4;
+}
+
+:root[data-theme="dark"] {
+  --accent: #8b8bff;
+  --accent-2: #22d3ee;
+}
+```
+
+## Déploiement
+
+Le projet peut être déployé sur Vercel, Netlify ou GitHub Pages.
+
+Exemple avec Vercel :
+
+1. Importez le dépôt depuis votre compte Vercel.
+2. Configurez le framework sur **Vite**.
+3. Utilisez la commande de build `npm run build`.
+4. Définissez `dist` comme répertoire de sortie.
+
+## Contact
+
+- **Email :** [rakotoarisoaratane@gmail.com](mailto:rakotoarisoaratane@gmail.com)
+- **GitHub :** [github.com/RataneRak](https://github.com/RataneRak)
+- **LinkedIn :** [Tanjona RAKOTOARISOA](https://linkedin.com/in/ratane-rakotoarisoa-b26b22286)
+- **Portfolio :** [portfolio-ratane.vercel.app](https://portfolio-ratane.vercel.app)
